@@ -125,7 +125,7 @@ public class DruidDataSourceConfig {
         } catch (SQLException e) {
             log.error("druid配置初始化失败", e);
         }
-
+        datasource.setConnectionProperties(connectionProperties);
         return datasource;
     }
 }

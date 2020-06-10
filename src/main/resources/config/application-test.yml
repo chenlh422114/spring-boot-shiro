@@ -9,6 +9,7 @@ server:
         uri-encoding: UTF-8
 spring:
     datasource:
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
         driver-class-name: com.mysql.cj.jdbc.Driver
         filters: config,stat,wall,slf4j
         initialSize: 5

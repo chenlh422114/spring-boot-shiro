@@ -4,6 +4,11 @@ package com.leigq.www.shiro.controller;
 import com.leigq.www.shiro.bean.Response;
 import com.leigq.www.shiro.domain.entity.User;
 import com.leigq.www.shiro.service.IUserService;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +37,11 @@ public class UserController {
      * 用户查询.
      * @return
      */
-    @GetMapping("/userList")
+    @ApiOperation(value = "用户列表接口", notes = "用户列表接口")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")
+    })
+    @RequestMapping(value = "/userList", method = RequestMethod.GET)
     @RequiresPermissions("user:view")//权限管理;
     public Response listUsers(){
         List<User> users = iUserService.listUsers();
@@ -43,20 +52,31 @@ public class UserController {
      * 用户添加;
      * @return
      */
-    @PostMapping("/userAdd")
+    @ApiOperation(value = "用户列表接口", notes = "用户列表接口")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")
+    })
+    @RequestMapping(value = "/userAdd", method = RequestMethod.POST)
     @RequiresPermissions("user:add")//权限管理;
-    public String userInfoAdd(){
-        return "userAdd";
+    public Response userInfoAdd(@RequestBody User user){
+    	iUserService.save(user);
+        return response.success("操作成功！", user);
     }
 
     /**
      * 用户删除;
      * @return
      */
-    @DeleteMapping("/userDel")
+    @ApiOperation(value = "删除用户接口", notes = "删除用户接口")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "long", paramType = "query")
+    })
+    @RequestMapping(value = "/userDel", method = RequestMethod.POST)
     @RequiresPermissions("user:del")//权限管理;
-    public String userDel(){
-        return "userDel";
+    public Response userDel(@RequestParam Long id){
+    	System.out.println("删除用户id:" + id);
+    	return response.success("操作成功！", id);
     }
 
 }

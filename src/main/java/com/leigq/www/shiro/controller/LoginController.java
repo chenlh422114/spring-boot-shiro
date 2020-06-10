@@ -6,16 +6,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leigq.www.shiro.bean.CacheUser;
 import com.leigq.www.shiro.bean.Response;
-import com.leigq.www.shiro.domain.entity.User;
 import com.leigq.www.shiro.service.IUserService;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @author ：leigq
@@ -40,7 +41,12 @@ public class LoginController {
      *
      * @return 登录结果
      */
-    @GetMapping("/login")
+    @ApiOperation(value = "登录接口", notes = "登录接口", httpMethod = "GET")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "userName", value = "姓名", required = true, dataType = "string"),
+    	@ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "string")
+    })
+    @RequestMapping("/login")
     public Response login(@RequestParam String userName, @RequestParam String password) {
         log.warn("进入登录.....");
 
@@ -89,6 +95,10 @@ public class LoginController {
      * description: 登出
      * create time: 2019/6/28 17:37
      */
+    @ApiOperation(value = "登出接口", notes = "登出接口", httpMethod = "GET")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")
+    })
     @RequestMapping("/logout")
     public Response logOut() {
         iUserService.logout();
@@ -103,6 +113,7 @@ public class LoginController {
      * create time: 2019/7/3 14:53
      * @return  
      */
+    @ApiOperation(value = "用户未登录接口", notes = "用户未登录接口", httpMethod = "GET")
     @RequestMapping("/un_auth")
     public Response unAuth() {
         return response.failure(HttpStatus.UNAUTHORIZED, "用户未登录！", null);
@@ -116,6 +127,7 @@ public class LoginController {
      * create time: 2019/7/3 14:53
      * @return
      */
+    @ApiOperation(value = "用户无权限接口", notes = "用户无权限接口", httpMethod = "GET")
     @RequestMapping("/unauthorized")
     public Response unauthorized() {
         return response.failure(HttpStatus.FORBIDDEN, "用户无权限！", null);
