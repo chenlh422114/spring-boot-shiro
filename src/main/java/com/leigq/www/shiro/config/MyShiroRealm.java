@@ -1,12 +1,10 @@
 package com.leigq.www.shiro.config;
 
-import com.leigq.www.shiro.domain.entity.Permission;
-import com.leigq.www.shiro.domain.entity.Role;
-import com.leigq.www.shiro.domain.entity.User;
-import com.leigq.www.shiro.service.IPermissionService;
-import com.leigq.www.shiro.service.IRoleService;
-import com.leigq.www.shiro.service.IUserService;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Objects;
+
+import javax.annotation.Resource;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -16,18 +14,24 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Objects;
+import com.leigq.www.shiro.domain.entity.Permission;
+import com.leigq.www.shiro.domain.entity.Role;
+import com.leigq.www.shiro.domain.entity.User;
+import com.leigq.www.shiro.service.IPermissionService;
+import com.leigq.www.shiro.service.IRoleService;
+import com.leigq.www.shiro.service.IUserService;
 
 /**
  * @author ：leigq
  * @date ：2019/6/28 16:31
  * @description：自定义 shiroRealm, 主要是重写其认证、授权
  */
-@Slf4j
 public class MyShiroRealm extends AuthorizingRealm {
+	
+	private static Logger log = LoggerFactory.getLogger(MyShiroRealm.class);
 
     @Resource
     private IUserService iUserService;

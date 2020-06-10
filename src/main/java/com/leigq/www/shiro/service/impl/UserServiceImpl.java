@@ -1,5 +1,18 @@
 package com.leigq.www.shiro.service.impl;
 
+import java.util.List;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.leigq.www.shiro.bean.CacheUser;
@@ -7,17 +20,6 @@ import com.leigq.www.shiro.domain.entity.User;
 import com.leigq.www.shiro.domain.mapper.UserMapper;
 import com.leigq.www.shiro.service.IUserService;
 import com.leigq.www.shiro.web.exception.LoginException;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -28,8 +30,9 @@ import java.util.List;
  * @since 2019-06-28
  */
 @Service
-@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+	
+	private static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     public User findByUsername(String username) {
@@ -55,9 +58,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             currentUser.login(token);
             // 构建缓存用户信息返回给前端
             User user = (User) currentUser.getPrincipals().getPrimaryPrincipal();
-            cacheUser = CacheUser.builder()
-                    .token(currentUser.getSession().getId().toString())
-                    .build();
+            cacheUser = new CacheUser();
+            cacheUser.setToken(currentUser.getSession().getId().toString());
             BeanUtils.copyProperties(user, cacheUser);
             log.warn("CacheUser is {}", cacheUser.toString());
         } catch (UnknownAccountException e) {

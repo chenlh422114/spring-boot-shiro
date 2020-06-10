@@ -1,13 +1,10 @@
 package com.leigq.www.shiro.domain.entity;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -17,9 +14,6 @@ import java.io.Serializable;
  * @author leigq
  * @since 2019-06-28
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("sys_role_permission")
 public class RolePermission implements Serializable {
 
@@ -33,6 +27,30 @@ public class RolePermission implements Serializable {
 
     @TableField("roleId")
     private Integer roleId;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getPermissionId() {
+		return permissionId;
+	}
+
+	public void setPermissionId(Integer permissionId) {
+		this.permissionId = permissionId;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
 
 
 }

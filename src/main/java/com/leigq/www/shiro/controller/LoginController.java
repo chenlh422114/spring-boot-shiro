@@ -1,26 +1,31 @@
 package com.leigq.www.shiro.controller;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.leigq.www.shiro.bean.CacheUser;
 import com.leigq.www.shiro.bean.Response;
 import com.leigq.www.shiro.domain.entity.User;
 import com.leigq.www.shiro.service.IUserService;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * @author ：leigq
  * @date ：2019/6/28 16:55
  * @description：登录Controller
  */
-@Slf4j
 @RestController
 public class LoginController {
+	
+	private static Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Resource
     private IUserService iUserService;
@@ -35,6 +40,29 @@ public class LoginController {
      *
      * @return 登录结果
      */
+    @GetMapping("/login")
+    public Response login(@RequestParam String userName, @RequestParam String password) {
+        log.warn("进入登录.....");
+
+        if (StringUtils.isBlank(userName)) {
+            return response.failure("用户名为空！");
+        }
+
+        if (StringUtils.isBlank(password)) {
+            return response.failure("密码为空！");
+        }
+
+        CacheUser loginUser = iUserService.login(userName, password);
+        // 登录成功返回用户信息
+        return response.success("登录成功！", loginUser);
+    }
+
+    /**
+     * create by: leigq
+     * description: 登录
+     * create time: 2019/6/28 17:11
+     *
+     * @return 登录结果
     @PostMapping("/login")
     public Response login(User user) {
         log.warn("进入登录.....");
@@ -54,6 +82,7 @@ public class LoginController {
         // 登录成功返回用户信息
         return response.success("登录成功！", loginUser);
     }
+     */
 
     /**
      * create by: leigq

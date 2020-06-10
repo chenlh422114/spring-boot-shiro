@@ -1,9 +1,5 @@
 package com.leigq.www.shiro.bean;
 
-import lombok.Builder;
-import lombok.Data;
-import org.crazycake.shiro.AuthCachePrincipal;
-
 import java.io.Serializable;
 
 /**
@@ -12,8 +8,6 @@ import java.io.Serializable;
  * @author     ：leigq
  * @date       ：2019/7/3 14:40
  */
-@Data
-@Builder
 public class CacheUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,4 +21,45 @@ public class CacheUser implements Serializable {
     private String userName;
 
     private String token;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+    
 }

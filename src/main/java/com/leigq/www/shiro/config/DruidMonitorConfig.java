@@ -1,12 +1,12 @@
 package com.leigq.www.shiro.config;
 
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 
 /**
  * Druid监控配置,使用基于Java代码实现的servlet和filter
@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Configuration;
  * </p>
  */
 @Configuration
-@Slf4j
 public class DruidMonitorConfig {
 
     /**

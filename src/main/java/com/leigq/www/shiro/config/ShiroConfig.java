@@ -1,6 +1,9 @@
 package com.leigq.www.shiro.config;
 
-import lombok.Data;
+import java.time.Duration;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -17,20 +20,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.Duration;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 /**
  * @author ：leigq
  * @date ：2019/6/28 16:53
  * @description：shiro配置
  */
 @Configuration
-@ConfigurationProperties(
-        prefix = "spring.redis"
-)
-@Data
+@ConfigurationProperties(prefix = "spring.redis")
 public class ShiroConfig {
 
     private String host = "localhost";
@@ -174,7 +170,7 @@ public class ShiroConfig {
         redisManager.setHost(host);
         redisManager.setPort(port);
         redisManager.setTimeout((int) timeout.toMillis());
-        redisManager.setPassword(password);
+        //redisManager.setPassword(password);
         return redisManager;
     }
 
@@ -261,4 +257,45 @@ public class ShiroConfig {
 //        //r.setWarnLogCategory("example.MvcLogger");     // No default
 //        return r;
 //    }
+
+
+	public String getHost() {
+		return host;
+	}
+
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+
+	public int getPort() {
+		return port;
+	}
+
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public Duration getTimeout() {
+		return timeout;
+	}
+
+
+	public void setTimeout(Duration timeout) {
+		this.timeout = timeout;
+	}
+    
 }
