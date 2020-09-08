@@ -1,6 +1,7 @@
 package com.leigq.www.shiro.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 缓存用户信息
@@ -21,6 +22,8 @@ public class CacheUser implements Serializable {
     private String userName;
 
     private String token;
+
+    private Date loginDate = new Date();
 
 	public String getEmail() {
 		return email;
@@ -60,6 +63,14 @@ public class CacheUser implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Date getLoginDate() {
+		return loginDate;
+	}
+
+	public void setLoginDate(Date loginDate) {
+		this.loginDate = loginDate;
 	}
     
 }

@@ -32,13 +32,13 @@ import java.util.*;
  */
 public class CodeGeneratorUtils {
 
-    private static final String AUTHOR = "leigq";
+    private static final String AUTHOR = "chenlh";
     private static final String HOST = "127.0.0.1";
     private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
     private static final String DATABASE_NAME = "shiro";
     private static final String DATABASE_USERNAME = "root";
-    private static final String DATABASE_PASSWORD = "123456";
-    private static final String PARENT_PACKAGE = "com.leigq.www.shiro";
+    private static final String DATABASE_PASSWORD = "root";
+    private static final String PARENT_PACKAGE = "com.leigq.www.test";
 
     /**
      * <p>
